@@ -1,12 +1,11 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using Excel;
 
 namespace ExcelDataReaderExtensions
 {
 	public static class ExcelDataReaderExtensions
 	{
-		public static DataTable ToDataTable(this ExcelOpenXmlReader self, DataTableConfig config = null) //DONE
+		public static DataTable AsDataTable(this ExcelOpenXmlReader self, DataTableConfig config = null) //DONE
 		{
             Log($"Extracting {self.Name} to DataTable");
             Log(@"config: {{
@@ -105,7 +104,7 @@ namespace ExcelDataReaderExtensions
             return table;
 		}
 
-		public static DataSet ToDataSet(this ExcelOpenXmlReader self, DataSetConfig config) //DONE
+		public static DataSet AsDataSet(this ExcelOpenXmlReader self, DataSetConfig config) //DONE
 		{
             Log("Extracting Sheets to DataSet");
             Log(@"config: {{
@@ -127,7 +126,7 @@ namespace ExcelDataReaderExtensions
                 {
                     break;
                 }
-                result.Tables.Add(ToDataTable(self, config.DataTableConfigSelect(self, config)));
+                result.Tables.Add(AsDataTable(self, config.DataTableConfigSelect(self, config)));
 
             } while (self.NextResult());
             result.AcceptChanges();
@@ -135,7 +134,7 @@ namespace ExcelDataReaderExtensions
             return result;
 		}
 
-		public static DataSet ToDataSetExt(this ExcelOpenXmlReader self, DataSetConfig config = null) => ToDataSet(self, config ?? new DataSetConfig());
+		public static DataSet AsDataSetExt(this ExcelOpenXmlReader self, DataSetConfig config = null) => AsDataSet(self, config ?? new DataSetConfig());
 
         internal static void Log(string msg, params object[] args)
         {

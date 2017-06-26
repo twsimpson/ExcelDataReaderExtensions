@@ -1,4 +1,3 @@
-using System;
 using Excel;
 
 namespace ExcelDataReaderExtensions
